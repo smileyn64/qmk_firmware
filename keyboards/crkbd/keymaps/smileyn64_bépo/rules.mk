@@ -11,8 +11,6 @@ RGBLIGHT_ENABLE = yes    		# Enable WS2812 RGB underlight.
 OLED_ENABLE     = yes
 OLED_DRIVER     = SSD1306
 #OLED_ROTATION_90 = yes
-LTO_ENABLE      = yes
-
 
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -27,7 +25,7 @@ RGB_MATRIX_DRIVER = WS2812
 
 
 # if firmware size over limit, try this option
-# LTO_ENABLE = yes
+LTO_ENABLE = yes
 
 DEFAULT_FOLDER = crkbd/rev1
 
