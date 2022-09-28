@@ -27,7 +27,12 @@ RGB_MATRIX_DRIVER = WS2812
 # if firmware size over limit, try this option
 LTO_ENABLE = yes
 
-DEFAULT_FOLDER = crkbd/rev1
+#default keyboard version
+#set to r2g for r3 or r2g version of keyboard
+#todo: this parameter seems to be ignored during compilation
+#				the compilator still uses the r1 as from keyboard generic folder rules.mk
+DEFAULT_FOLDER = crkbd/r2g
+
 
 LAYOUTS = split_3x5_3 split_3x6_3
 
