@@ -18,57 +18,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-
-//const key_A1 = "XP(UC(0x00E0),UC(0x00C0))" // à/À
-//const key_C1 = "XP(UC(0x00E7),UC(0x00C7))" // ç/Ç
-//const key_E1 = "XP(UC(0x00E9),UC(0x00C9))" // é/É
-//const key_E2 = "XP(UC(0x00E8),UC(0x00C8))" // è/È
-//const key_E3 = "XP(UC(0x00EA),UC(0x00CA))" // ê/Ê
-//const key_SP1 = "XP(UC(0x005E),UC(0x0021))" // ^/!
-//const key_SP2 = "XP(UC(0x002C),UC(0x003B))" // ,/;
-//const key_SP3 = "XP(UC(0x002E),UC(0x003A))" // ./:
-//const key_SP4 = "XP(UC(0x0027),UC(0x003F))" // '/?
-//const key_SP4 = "MT(KC_LSFT, KC_SPC)" // SHIFT, SPACE
+#include keymap_bepo.h
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//  [0] = LAYOUT_split_3x6_3(
-//  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//       KC_TAB,    KC_B,  key_E1,    KC_P,    KC_O,  key_E2,                      key_SP1,    KC_V,    KC_D,    KC_L,    KC_J,    KC_Z,
-//  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//         KC_W,    KC_A,    KC_U,    KC_I,    KC_E, key_SP2,                         KC_C,    KC_T,    KC_S,    KC_R,    KC_N,    KC_M,
-//  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//       key_E3,  key_A1,    KC_Y,    KC_X, key_SP3,    KC_K,                      key_SP4,    KC_Q,    KC_G,    KC_H,    KC_F,  key_C1,
-//  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-//                                          XXXXXXX, XXXXXXX,  KC_ENT,    key_SP4, XXXXXXX, XXXXXXX
-//                                      //`--------------------------'  `--------------------------'
-//
-//  )
 
+    //Base Layer
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_B, XXXXXXX,    KC_P,    KC_O, XXXXXXX,                      XXXXXXX,    KC_V,    KC_D,    KC_L,    KC_J,    KC_Z,
+       KC_TAB,    KC_B, BP_EACU,    KC_P,    KC_O, BP_EGRV,                      BP_DCIR,    KC_V,    KC_D,    KC_L,    KC_J,    KC_Z,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         KC_W,    KC_A,    KC_U,    KC_I,    KC_E, XXXXXXX,                         KC_C,    KC_T,    KC_S,    KC_R,    KC_N,    KC_M,
+         KC_W,    KC_A,    KC_U,    KC_I,    KC_E, BP_COMM,                         KC_C,    KC_T,    KC_S,    KC_R,    KC_N,    KC_M,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     XXXXXXX,  XXXXXXX,    KC_Y,    KC_X, XXXXXXX,    KC_K,                      XXXXXXX,    KC_Q,    KC_G,    KC_H,    KC_F, XXXXXXX,
+      BP_ECIR, BP_AGRV,    KC_Y,    KC_X,  BP_DOT,    KC_K,                      BP_QUOT,    KC_Q,    KC_G,    KC_H,    KC_F, BP_CCED,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX,  KC_ENT,    XXXXXXX, XXXXXXX, XXXXXXX
+                                          XXXXXXX, XXXXXXX,  KC_ENT,    RSFT_T(KC_SPC), XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
 
   ),
 
+    //Shift Layer
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      BP_EXLM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BP_SCLN,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BP_COLN, XXXXXXX,                      BP_QUES, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT,   MO(3), KC_RALT
+                                          XXXXXXX, XXXXXXX, XXXXXXX,    _______, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
+  /*
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
@@ -92,6 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
   )
+  */
 };
 
 #ifdef OLED_ENABLE
