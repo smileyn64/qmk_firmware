@@ -82,7 +82,7 @@ DEFERRED_EXEC_ENABLE = no
 #### Keymap Parameters ####
 # For a keyboard to support a layout, the variable must be defined in it’s <keyboard>.h,
 # and match the number of arguments/keys (and preferably the physical layout):
-LAYOUTS = split_3x5_3 split_3x6_3
+#LAYOUTS = split_3x5_3 split_3x6_3
 
 # A feature that lets you control your mouse cursor and click from your keyboard.
 MOUSEKEY_ENABLE = no     # Mouse keys
