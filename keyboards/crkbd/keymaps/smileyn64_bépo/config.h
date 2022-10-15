@@ -19,10 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Select hand configuration */
-
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
+
+/* Enable sharing of parameters between sides */
+//#define SPLIT_LAYER_STATE_ENABLE
+
+//#define OLED_BRIGHTNESS 128
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
@@ -41,4 +45,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+//#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#define OLED_FONT_H "keyboards/crkbd/keymaps/smileyn64_bépo/Fonts/FreeMono9pt7b.h"
+#define OLED_FONT_WIDTH 7
+//#define OLED_FONT_HEIGHT 9
+//#define OLED_FONT_START 0
+#define OLED_FONT_END 120
+
+//#define OLED_FADE_OUT
+// #define OLED_FADE_OUT_INTERVAL 10
+//#define OLED_TIMEOUT 5000
+//#define OLED_FONT_HEIGHT 16
