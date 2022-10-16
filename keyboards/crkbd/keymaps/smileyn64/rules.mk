@@ -88,7 +88,7 @@ DEFERRED_EXEC_ENABLE = no
 MOUSEKEY_ENABLE = no     # Mouse keys
 
 # This allows you to use the system and audio control key codes.
-EXTRAKEY_ENABLE = no    # Audio control and System control
+EXTRAKEY_ENABLE = yes    # Audio control and System control
 
 # This enables MIDI sending and receiving with your keyboard.
 # To enter MIDI send mode, you can use the keycode MI_ON, and MI_OFF to turn it off.
