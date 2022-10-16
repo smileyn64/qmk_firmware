@@ -40,8 +40,6 @@ enum crkbd_layers {
 #define SPACESFT RSFT_T(KC_SPC) //Right shift when held, Space when tapped
 #define ENTCTRL LCTL_T(KC_ENT) //
 
-#define KC_MNXT
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_AZERTY] = LAYOUT_split_3x6_3(
      KC_ESC,     KC_A,     KC_Z,     KC_E,     KC_R,     KC_T,            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC,
@@ -149,7 +147,7 @@ void render_default_layer_state(void) {
     oled_write_P(PSTR("Lyout"), false);
     switch (get_highest_layer(default_layer_state)) {
         case _AZERTY:
-            oled_write_P(PSTR(" QRTY"), false);
+            oled_write_P(PSTR(" AZTY"), false);
             break;
     }
 }

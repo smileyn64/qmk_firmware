@@ -14,7 +14,7 @@ DEFAULT_FOLDER = crkbd/r2g
 # if firmware size over limit, try this option
 # This will cause the final step to take longer, but should get you a smaller compiled size.
 # This also disables Action Functions, and Action Macros, both of which are deprecated.
-LTO_ENABLE = no
+LTO_ENABLE = yes
 
 # Enable VIA
 # may have issues with Unicode keymaps
