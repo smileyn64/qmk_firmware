@@ -31,7 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Enable sharing of parameters between sides */
 #define SPLIT_OLED_ENABLE
 
-#define USE_SERIAL_PD2
+/* Enable Bootmagic features */
+#define BOOTMAGIC_ENABLE = yes
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100

@@ -134,7 +134,8 @@ void render_keylogger_status(void) {
     oled_write(keylog_str, false);
 }
 
-void render_default_layer_state(void) {
+void render_layout_state(void) {
+    oled_set_cursor(0,0);
     oled_write_P(PSTR("Lyout"), false);
     switch (get_highest_layer(default_layer_state)) {
         case _AZERTY:
@@ -144,12 +145,14 @@ void render_default_layer_state(void) {
 }
 
 void render_layer_state(void) {
+    oled_set_cursor(0,3);
     oled_write_P(PSTR("LAYER"), false);
     oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
     oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
+    oled_set_cursor(0,6);
     oled_write_P(PSTR("Lock:"), false);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
@@ -158,6 +161,7 @@ void render_keylock_status(uint8_t led_usb_state) {
 }
 
 void render_mod_status(uint8_t modifiers) {
+    oled_set_cursor(0,9);
     oled_write_P(PSTR("Mods:"), false);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
@@ -167,6 +171,7 @@ void render_mod_status(uint8_t modifiers) {
 }
 
 void render_bootmagic_status(void) {
+    oled_set_cursor(0,12);
     /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
@@ -184,7 +189,8 @@ void render_bootmagic_status(void) {
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
-    render_default_layer_state();
+    render_layout_state();
+    render_layer_state();
     render_keylock_status(host_keyboard_leds());
     render_mod_status(get_mods());
     render_bootmagic_status();
