@@ -180,7 +180,7 @@ void oled_render_logo(void) {
     //oled_write_raw_P(alt[0], sizeof(alt[0]));
     //oled_write_raw_P(alt[1], sizeof(alt[1]));
 
-    /*switch (layer_state) {
+    switch (layer_state) {
         case L_BASE:
             oled_write_raw_P(alt[0], sizeof(alt[0]));
             break;
@@ -196,7 +196,7 @@ void oled_render_logo(void) {
         case L_ADJUST|L_LOWER|L_RAISE:
             oled_write_raw_P(alt[0], sizeof(alt[0]));
             break;
-    }*/
+    }
 }
 
 bool oled_task_user(void) {
