@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Enable sharing of parameters between sides */
 #define SPLIT_LAYER_STATE_ENABLE   //Shares the layer status between sides
-#define SPLIT_OLED_ENABLE          //Shares the OLED on/off status 
+#define SPLIT_OLED_ENABLE          //Shares the OLED on/off status
 
 //#define OLED_BRIGHTNESS 128
 
@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 //#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-#define OLED_FONT_H "keyboards/crkbd/keymaps/smileyn64_bépo/Fonts/glcdfont.c"
+#define OLED_FONT_H "keyboards/crkbd/keymaps/smileyn64_dev/Fonts/glcdfont.c"
 //#define OLED_FONT_WIDTH 7
 //#define OLED_FONT_HEIGHT 9
 //#define OLED_FONT_START 0

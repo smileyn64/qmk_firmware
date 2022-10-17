@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "Animations/ocean_dream.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
@@ -58,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      QK_BOOT, RGB_M_P, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -92,8 +93,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
     //return rotation;
   } else {
-    //return OLED_ROTATION_270;
-    return rotation;
+    return OLED_ROTATION_270;
+    //return rotation;
   }
 }
 
@@ -128,6 +129,7 @@ void oled_render_layer_state(void) {
 }
 
 char keylog_str[24] = {};
+uint16_t thechar= 0;
 
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -171,40 +173,60 @@ void oled_render_keylog(void) {
 }*/
 
 void oled_render_logo(void) {
-    /*static const char PROGMEM crkbd_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0x00};
-    oled_write_P(crkbd_logo, false);*/
-    //oled_write_raw_P(alt[0], sizeof(alt[0]));
-    //oled_write_raw_P(alt[1], sizeof(alt[1]));
+    static const char PROGMEM logo[][2][3] = {
+        {{0x80, 0x81, 0}, {0xA0, 0xA1, 0}}, // 0 grand
+        {{0x82, 0x83, 0}, {0xA2, 0xA3, 0}}, // 1 grand
+        {{0x84, 0x85, 0}, {0xA4, 0xA5, 0}}, // 2 grand
+        {{0x86, 0x87, 0}, {0xA6, 0xA7, 0}}, // 3 grand
+        {{0x88, 0x89, 0}, {0xA8, 0xA9, 0}}, // 4 grand
+        {{0x8A, 0x8B, 0}, {0xAA, 0xAB, 0}}, // 5 grand
+        {{0x8C, 0x8D, 0}, {0xAC, 0xAD, 0}}, // 6 grand
+        {{0x8E, 0x8F, 0}, {0xAE, 0xAF, 0}}, // 7 grand
+        {{0x90, 0x91, 0}, {0xB0, 0xB1, 0}}, // 8 grand
+        {{0x92, 0x93, 0}, {0xB2, 0xB3, 0}}, // 9 grand
+    };
 
+    oled_clear();
+    oled_set_cursor(0,3);
+    oled_set_cursor(0,0);
     switch (layer_state) {
         case L_BASE:
-            oled_write_raw_P(alt[0], sizeof(alt[0]));
+            //oled_write_raw_P(alt[0], sizeof(alt[0]));
+            oled_write_P(logo[0][0], false);
+            oled_set_cursor(0,1);
+            oled_write_P(logo[0][1], false);
             break;
         case L_LOWER:
-            oled_write_raw_P(alt[0], sizeof(alt[0]));
+            //oled_write_raw_P(alt[0], sizeof(alt[0]));
+            oled_write_P(logo[1][0], false);
+            oled_set_cursor(0,1);
+            oled_write_P(logo[1][1], false);
             break;
         case L_RAISE:
-            oled_write_raw_P(alt[1], sizeof(alt[1]));
+            //oled_write_raw_P(alt[1], sizeof(alt[1]));
+            //oled_write_char(thechar,false);
+            //thechar++;
+            oled_write_P(logo[2][0], false);
+            oled_set_cursor(0,1);
+            oled_write_P(logo[2][1], false);
             break;
         case L_ADJUST:
         case L_ADJUST|L_LOWER:
         case L_ADJUST|L_RAISE:
         case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_raw_P(alt[0], sizeof(alt[0]));
             break;
     }
 }
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        oled_render_layer_state();
+      oled_render_logo();
         //oled_render_keylog();
     } else {
-        oled_render_logo();
+      #    ifdef OCEAN_DREAM_ENABLE
+              //render_stars();
+              //oled_scroll_right();
+      #    endif
     }
     return false;
 }
@@ -212,6 +234,14 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
+  }
+  switch (keycode) {
+      case KC_LCTL:
+      case KC_RCTL:
+          #ifdef OCEAN_DREAM_ENABLE
+                      is_calm = (record->event.pressed) ? true : false;
+          #endif
+          break;
   }
   return true;
 }

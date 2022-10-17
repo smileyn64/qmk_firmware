@@ -26,7 +26,7 @@ Installation is easy.
 to `oled_task_user(void)`, where you would like (see [my keymap](../../keyboards/crkbd/keymaps/snowe/keymap.c) for an example)
 3. In your `keymap.c` or wherever you handle your process_record code,
    add an event that sets `is_calm` when you press `ctrl`
-```c
+```
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_LCTL:
@@ -40,7 +40,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 4. In your `rules.mk` to make it easier to turn the animation on/off, add
-```makefile
+```
 ifeq ($(strip $(OLED_ENABLE)), yes)
     #... your code here...
 
@@ -58,13 +58,13 @@ endif
 ```
 
 You're done! Now you can enable **Ocean Dream** by simply turning on the OLED feature
-```makefile
+```
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 ```
 
 And if you want to disable it without turning off the OLED Driver you can simply set
-```makefile
+```
 OCEAN_DREAM_ENABLE = no
 ```
 

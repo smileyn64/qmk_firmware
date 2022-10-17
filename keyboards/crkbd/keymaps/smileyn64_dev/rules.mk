@@ -14,7 +14,7 @@ DEFAULT_FOLDER = crkbd/r2g
 # if firmware size over limit, try this option
 # This will cause the final step to take longer, but should get you a smaller compiled size.
 # This also disables Action Functions, and Action Macros, both of which are deprecated.
-LTO_ENABLE = no
+LTO_ENABLE = yes
 
 # Enable VIA
 # may have issues with Unicode keymaps
@@ -117,4 +117,21 @@ OLED_DRIVER     = SSD1306
 
 #The WPM feature uses time between keystrokes to compute a rolling average words per minute rate and makes this available for various uses.
 #For split keyboards using soft serial, the computed WPM score will be available on the master AND slave half.
-WPM_ENABLE = no
+WPM_ENABLE = yes
+
+OCEAN_DREAM_ENABLE = yes
+
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    #... your code here...
+
+    ifdef OCEAN_DREAM_ENABLE
+        ifeq ($(strip $(OCEAN_DREAM_ENABLE)), yes)
+            SRC += Animations/ocean_dream.c
+            OPT_DEFS += -DOCEAN_DREAM_ENABLE
+        endif
+    endif
+    ifndef OCEAN_DREAM_ENABLE
+        SRC += Animations/ocean_dream.c
+        OPT_DEFS += -DOCEAN_DREAM_ENABLE
+    endif
+endif
