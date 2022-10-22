@@ -6,4 +6,5 @@
 - [ ] search for OS support
 - [ ] search for basic layout selection
 - [ ] adjust the placement of icons
-- [ ] optimize the 
+- [ ] optimize the glcdfont_dev
+- [ ] integrate the 4 layer glcdfont_dev for test
