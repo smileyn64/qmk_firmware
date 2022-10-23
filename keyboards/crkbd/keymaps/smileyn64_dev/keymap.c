@@ -22,13 +22,14 @@ enum crkbd_layers {
     _AZERTY,
     _QWERTY,
     _BEPO,
-    _RAISE,
-    _LOWER,
+    _L1,
+    _L2,
+    _L3,
     _ADJUST,
 };
 
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+#define L1 MO(_L1)
+#define L2 MO(_L2)
 #define CTLTB CTL_T(KC_TAB)
 
 #define SPACESFT RSFT_T(KC_SPC) //Right shift when held, Space when tapped
@@ -39,15 +40,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC,     KC_A,     KC_Z,     KC_E,     KC_R,     KC_T,            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC,
      KC_TAB,     KC_Q,     KC_S,     KC_D,     KC_F,     KC_G,            KC_H,     KC_J,     KC_K,     KC_L,     KC_M,  XXXXXXX,
     XXXXXXX,     KC_W,     KC_X,     KC_C,     KC_V,     KC_B,            KC_N,  KC_COMM,   KC_DOT,  KC_SLSH,  KC_EXLM,  XXXXXXX,
-                                      XXXXXXX,    LOWER,   ENTCTRL, SPACESFT,  RAISE,  XXXXXXX
+                                      XXXXXXX,       L2,   ENTCTRL, SPACESFT,       L1,  XXXXXXX
   ),
-  [_RAISE] = LAYOUT_split_3x6_3(
+  [_QWERTY] = LAYOUT_split_3x6_3(
+    XXXXXXX,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+                                      XXXXXXX,       L2,   ENTCTRL, SPACESFT,       L1,  XXXXXXX
+  ),
+  [_BEPO] = LAYOUT_split_3x6_3(
+     XXXXXXX,     KC_B,     KC_E,     KC_P,     KC_O,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+                                      XXXXXXX,       L2,   ENTCTRL, SPACESFT,       L1,  XXXXXXX
+  ),
+  [_L1] = LAYOUT_split_3x6_3(
     KC_MPRV,  KC_VOLU,    KC_F2,    KC_F3,    KC_F5,  XXXXXXX,         KC_BSPC,  KC_HOME,    KC_UP,  KC_PGUP,  XXXXXXX,  KC_CALC,
     KC_MPLY,  KC_MUTE,   KC_CUT,  KC_COPY,  KC_PSTE,  XXXXXXX,          KC_DEL,  KC_LEFT,  KC_DOWN,  KC_RGHT,  XXXXXXX,  KC_MAIL,
     KC_MNXT,  KC_VOLD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          KC_INS,   KC_END,  XXXXXXX,  KC_PGDN,  KC_MYCM,  KC_WHOM,
                                       XXXXXXX,  _______,  KC_RSFT,  XXXXXXX,  _______,  XXXXXXX
   ),
-  [_LOWER] = LAYOUT_split_3x6_3(
+  [_L2] = LAYOUT_split_3x6_3(
+      KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,         KC_NLCK,    KC_P7,    KC_P8,    KC_P9,  KC_PMNS,  XXXXXXX,
+      KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,         KC_PAST,    KC_P4,    KC_P5,    KC_P6,  KC_PPLS,  XXXXXXX,
+    KC_NUBS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         KC_PSLS,    KC_P1,    KC_P2,    KC_P3,  KC_PENT,  XXXXXXX,
+                                      XXXXXXX,  _______,  XXXXXXX,  KC_LCTL,  _______,  KC_P0
+  ),
+  [_L3] = LAYOUT_split_3x6_3(
       KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,         KC_NLCK,    KC_P7,    KC_P8,    KC_P9,  KC_PMNS,  XXXXXXX,
       KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,         KC_PAST,    KC_P4,    KC_P5,    KC_P6,  KC_PPLS,  XXXXXXX,
     KC_NUBS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         KC_PSLS,    KC_P1,    KC_P2,    KC_P3,  KC_PENT,  XXXXXXX,
@@ -62,11 +81,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+    state = update_tri_layer_state(state, _L1, _L2, _ADJUST);
     return state;
 }
 
 #ifdef OLED_ENABLE
+#include <stdio.h>
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master()) {
@@ -112,41 +132,34 @@ void oled_render_modifier_state(void) {
       {{133, 134, 0}, {165, 166, 0}}, //white
       {{141, 142, 0}, {173, 174, 0}}, //black
   };
-
   static const char PROGMEM option[][2][3] = {
       {{135, 136, 0}, {167, 168, 0}}, //white
       {{143, 144, 0}, {175, 176, 0}}, //black
   };
-
   static const char PROGMEM ctrl[][2][3] = {
       {{137, 138, 0}, {169, 170, 0}}, //white
       {{145, 146, 0}, {177, 178, 0}}, //black
   };
-
   static const char PROGMEM shift[][2][3] = {
       {{139, 140, 0}, {171, 172, 0}}, //white
       {{147, 148, 0}, {179, 180, 0}}, //black
   };
-
   static const char PROGMEM separators[][2][2] = {
       {{197, 0}, {198, 0}}, //off_off
       {{199, 0}, {200, 0}}, //on_off
       {{201, 0}, {202, 0}}, //off_on
       {{203, 0}, {204, 0}}, //on_on
   };
-
 /*
   static const char PROGMEM alt[][2][3] = {
       {{28, 29, 0}, {60, 61, 0}}, //white
       {{30, 31, 0}, {62, 63, 0}}, //black
   };
-
   static const char PROGMEM windows[][2][3] = {
       {{91, 92, 0}, {123, 124, 0}}, //white
       {{93, 94, 0}, {125, 126, 0}}, //black
   };
 */
-
   oled_set_cursor(0,3);
   oled_write_P(command[0][0], false);
   oled_write_P(separators[0][0], false);
@@ -161,7 +174,6 @@ void oled_render_modifier_state(void) {
   oled_write_P(ctrl[0][1], false);
   oled_write_P(separators[0][1], false);
   oled_write_P(shift[0][1], false);
-
 /*
   oled_write_P(alt[0][0], false);
   oled_write_P(separators[0][0], false);
@@ -177,53 +189,107 @@ void oled_render_keylock_state (void) {
       {{5, 6, 7, 8, 9, 0}, {37, 38, 39, 40, 41, 0}}, //white
       {{11, 12, 13, 14, 15, 0}, {43, 44, 45, 46, 0}}, //black
   };
-
   oled_write_P(inser[0][0], false);
   oled_write_P(inser[0][1], false);
-
 }
 
 void oled_render_layer_state(void) {
   static const char PROGMEM layer[][3][4] = {
-      {{133, 134, 0, 0}, {165, 166, 0, 0}, {165, 166, 0, 0}}, //_BASE
-      {{141, 142, 0, 0}, {173, 174, 0, 0}, {165, 166, 0, 0}}, //_RAISE
-      {{141, 142, 0, 0}, {173, 174, 0, 0}, {165, 166, 0, 0}}, //_LOWER
+      {{145, 146, 147, 0}, {177, 178, 179, 0}, {209, 210, 211, 0}}, //0 _AZERTY | _QWERTY | _BEPO
+      {{148, 149, 150, 0}, {180, 181, 182, 0}, {212, 213, 214, 0}}, //1
+      {{151, 152, 153, 0}, {183, 184, 185, 0}, {215, 216, 217, 0}}, //2
+      {{154, 155, 156, 0}, {186, 187, 188, 0}, {218, 219, 220, 0}}, //3
       {{157, 158, 159, 0}, {189, 190, 191, 0}, {221, 222, 223, 0}}, //_ADJUST
   };
+  switch (layer_state) {
+      case _AZERTY:
+      case _QWERTY:
+      case _BEPO:
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[0][0], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[0][1], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[0][2], false);
+          break;
+      case _L1:
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[1][0], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[1][1], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[1][2], false);
+          break;
+      case _L2:
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[2][0], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[2][1], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[2][2], false);
+          break;
+      case _L3:
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[3][0], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[3][1], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[3][2], false);
+          break;
+      case _ADJUST:
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[4][0], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[4][1], false);
+          oled_write_P(PSTR("\n"), false);
+          oled_write_P(PSTR(" "), false);
+          oled_write_P(layer[4][2], false);
+          break;
+    };
+}
 
+/*
+void oled_render_logo(void) {
   static const char PROGMEM logo[][6] = {
       {128, 129, 130, 131, 132, 0},
       {160, 161, 162, 163, 164, 0},
       {192, 193, 194, 195, 196, 0},
   };
-
-  oled_write_P(PSTR(" "), false);
-  oled_write_P(layer[3][0], false);
-  oled_write_P(PSTR("\n"), false);
-  oled_write_P(PSTR(" "), false);
-  oled_write_P(layer[3][1], false);
-  oled_write_P(PSTR("\n"), false);
-  oled_write_P(PSTR(" "), false);
-  oled_write_P(layer[3][2], false);
-
   oled_write_P(PSTR("\n"), false);
   oled_write_P(logo[0], false);
   oled_write_P(logo[1], false);
   oled_write_P(logo[2], false);
-
 }
-
+*/
 
 bool oled_task_user(void) {
+/*
     if (is_keyboard_master()) {
       oled_render_os();
       oled_render_layout_state();
       oled_render_modifier_state();
       oled_render_keylock_state();
       oled_render_layer_state();
+      oled_render_logo();
     } else {
 
     }
+*/
+    oled_render_os();
+    oled_render_layout_state();
+    oled_render_modifier_state();
+    oled_render_keylock_state();
+    oled_render_layer_state();
+    //oled_render_logo();
     return false;
 }
 
