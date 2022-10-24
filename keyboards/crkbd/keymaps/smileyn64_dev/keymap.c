@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX,  _______,  XXXXXXX,  KC_LCTL,  _______,  KC_P0
   ),
   [_L3] = LAYOUT_split_3x6_3(
-      KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,         KC_NLCK,    KC_P7,    KC_P8,    KC_P9,  KC_PMNS,  XXXXXXX,
-      KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,         KC_PAST,    KC_P4,    KC_P5,    KC_P6,  KC_PPLS,  XXXXXXX,
-    KC_NUBS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         KC_PSLS,    KC_P1,    KC_P2,    KC_P3,  KC_PENT,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
                                       XXXXXXX,  _______,  XXXXXXX,  KC_LCTL,  _______,  KC_P0
   ),
   [_ADJUST] = LAYOUT_split_3x6_3(
@@ -201,10 +201,10 @@ void oled_render_layer_state(void) {
       {{154, 155, 156, 0}, {186, 187, 188, 0}, {218, 219, 220, 0}}, //3
       {{157, 158, 159, 0}, {189, 190, 191, 0}, {221, 222, 223, 0}}, //_ADJUST
   };
-  switch (layer_mask) {
-      case _AZERTY:
-      case _QWERTY:
-      case _BEPO:
+  switch (layer_state) {
+      case 0:
+      case 2:
+      case 4:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[0][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -214,7 +214,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[0][2], false);
           break;
-      case _L1:
+      case 8:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[1][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -224,7 +224,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[1][2], false);
           break;
-      case _L2:
+      case 16:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[2][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -234,7 +234,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[2][2], false);
           break;
-      case _L3:
+      case 32:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[3][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -244,7 +244,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[3][2], false);
           break;
-      case _ADJUST:
+      case 64:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[4][0], false);
           oled_write_P(PSTR("\n"), false);
