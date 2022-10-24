@@ -86,7 +86,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef OLED_ENABLE
-#include <stdio.h>
+#include <stdio.h> //standard C library for macros, constants, definition of functions in I/O relations
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master()) {
@@ -150,16 +150,16 @@ void oled_render_modifier_state(void) {
       {{201, 0}, {202, 0}}, //off_on
       {{203, 0}, {204, 0}}, //on_on
   };
-/*
-  static const char PROGMEM alt[][2][3] = {
-      {{28, 29, 0}, {60, 61, 0}}, //white
-      {{30, 31, 0}, {62, 63, 0}}, //black
-  };
-  static const char PROGMEM windows[][2][3] = {
-      {{91, 92, 0}, {123, 124, 0}}, //white
-      {{93, 94, 0}, {125, 126, 0}}, //black
-  };
-*/
+  /*
+    static const char PROGMEM alt[][2][3] = {
+        {{28, 29, 0}, {60, 61, 0}}, //white
+        {{30, 31, 0}, {62, 63, 0}}, //black
+    };
+    static const char PROGMEM windows[][2][3] = {
+        {{91, 92, 0}, {123, 124, 0}}, //white
+        {{93, 94, 0}, {125, 126, 0}}, //black
+    };
+  */
   oled_set_cursor(0,3);
   oled_write_P(command[0][0], false);
   oled_write_P(separators[0][0], false);
@@ -174,14 +174,14 @@ void oled_render_modifier_state(void) {
   oled_write_P(ctrl[0][1], false);
   oled_write_P(separators[0][1], false);
   oled_write_P(shift[0][1], false);
-/*
-  oled_write_P(alt[0][0], false);
-  oled_write_P(separators[0][0], false);
-  oled_write_P(windows[0][0], false);
-  oled_write_P(alt[0][1], false);
-  oled_write_P(separators[0][1], false);
-  oled_write_P(windows[0][1], false);
-*/
+  /*
+    oled_write_P(alt[0][0], false);
+    oled_write_P(separators[0][0], false);
+    oled_write_P(windows[0][0], false);
+    oled_write_P(alt[0][1], false);
+    oled_write_P(separators[0][1], false);
+    oled_write_P(windows[0][1], false);
+  */
 }
 
 void oled_render_keylock_state (void) {
@@ -201,7 +201,7 @@ void oled_render_layer_state(void) {
       {{154, 155, 156, 0}, {186, 187, 188, 0}, {218, 219, 220, 0}}, //3
       {{157, 158, 159, 0}, {189, 190, 191, 0}, {221, 222, 223, 0}}, //_ADJUST
   };
-  switch (layer_state) {
+  switch (layer_mask) {
       case _AZERTY:
       case _QWERTY:
       case _BEPO:
@@ -272,18 +272,18 @@ void oled_render_logo(void) {
 */
 
 bool oled_task_user(void) {
-/*
-    if (is_keyboard_master()) {
-      oled_render_os();
-      oled_render_layout_state();
-      oled_render_modifier_state();
-      oled_render_keylock_state();
-      oled_render_layer_state();
-      oled_render_logo();
-    } else {
+  /*
+      if (is_keyboard_master()) {
+        oled_render_os();
+        oled_render_layout_state();
+        oled_render_modifier_state();
+        oled_render_keylock_state();
+        oled_render_layer_state();
+        oled_render_logo();
+      } else {
 
-    }
-*/
+      }
+  */
     oled_render_os();
     oled_render_layout_state();
     oled_render_modifier_state();
