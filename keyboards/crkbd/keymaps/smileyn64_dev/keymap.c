@@ -203,8 +203,8 @@ void oled_render_layer_state(void) {
   };
   switch (layer_state) {
       case 0:
+      case 1:
       case 2:
-      case 4:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[0][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -214,7 +214,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[0][2], false);
           break;
-      case 8:
+      case 4:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[1][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -224,7 +224,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[1][2], false);
           break;
-      case 16:
+      case 8:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[2][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -234,7 +234,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[2][2], false);
           break;
-      case 32:
+      case 10:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[3][0], false);
           oled_write_P(PSTR("\n"), false);
@@ -244,7 +244,7 @@ void oled_render_layer_state(void) {
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[3][2], false);
           break;
-      case 64:
+      case 20:
           oled_write_P(PSTR(" "), false);
           oled_write_P(layer[4][0], false);
           oled_write_P(PSTR("\n"), false);
