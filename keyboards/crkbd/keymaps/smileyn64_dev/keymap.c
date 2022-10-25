@@ -28,9 +28,16 @@ enum crkbd_layers {
     _ADJUST,
 };
 
-#define L0 TO(_AZERTY)
-#define L1 TO(_L1)
-#define L2 TO(_L2)
+#define _AZERTY 0
+#define _QWERTY 1
+#define _BEPO 2
+#define _L1 3
+#define _L2 4
+#define _L3 5
+#define _ADJUST 6
+
+#define L1 MO(_L1)
+#define L2 MO(_L2)
 #define L3 TO(_L3)
 #define ADJUST TO(_ADJUST)
 
@@ -46,7 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,     KC_W,     KC_X,     KC_C,     KC_V,     KC_B,            KC_N,  KC_COMM,   KC_DOT,  KC_SLSH,  KC_EXLM,  XXXXXXX,
                                       XXXXXXX,  XXXXXXX,   ENTCTRL, SPACESFT,       L1,  XXXXXXX
   ),
-  /*
   [_QWERTY] = LAYOUT_split_3x6_3(
     XXXXXXX,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -57,20 +63,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX,     KC_B,     KC_E,     KC_P,     KC_O,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-                                      XXXXXXX,  XXXXXXX,   ENTCTRL, SPACESFT,       L1,  XXXXXXX
+                                      XXXXXXX,       L2,   ENTCTRL, SPACESFT,       L1,  XXXXXXX
   ),
-  */
   [_L1] = LAYOUT_split_3x6_3(
     KC_MPRV,  KC_VOLU,    KC_F2,    KC_F3,    KC_F5,  XXXXXXX,         KC_BSPC,  KC_HOME,    KC_UP,  KC_PGUP,  XXXXXXX,  KC_CALC,
     KC_MPLY,  KC_MUTE,   KC_CUT,  KC_COPY,  KC_PSTE,  XXXXXXX,          KC_DEL,  KC_LEFT,  KC_DOWN,  KC_RGHT,  XXXXXXX,  KC_MAIL,
     KC_MNXT,  KC_VOLD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          KC_INS,   KC_END,  XXXXXXX,  KC_PGDN,  KC_MYCM,  KC_WHOM,
-                                      XXXXXXX,       L0,  KC_RSFT,  XXXXXXX,       L2,  XXXXXXX
+                                      XXXXXXX,  _______,  KC_RSFT,  XXXXXXX,  _______,  XXXXXXX
   ),
   [_L2] = LAYOUT_split_3x6_3(
       KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,         KC_NLCK,    KC_P7,    KC_P8,    KC_P9,  KC_PMNS,  XXXXXXX,
       KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,         KC_PAST,    KC_P4,    KC_P5,    KC_P6,  KC_PPLS,  XXXXXXX,
     KC_NUBS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         KC_PSLS,    KC_P1,    KC_P2,    KC_P3,  KC_PENT,  XXXXXXX,
-                                      XXXXXXX,       L1,  XXXXXXX,  KC_LCTL,       L3,  KC_P0
+                                      XXXXXXX,  _______,  XXXXXXX,  KC_LCTL,  _______,  KC_P0
   ),
   [_L3] = LAYOUT_split_3x6_3(
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -82,16 +87,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-                                      XXXXXXX,       L0,   KC_SPC,   KC_ENT,  XXXXXXX,  XXXXXXX
+                                      XXXXXXX,  _______,   KC_SPC,   KC_ENT,  _______,  XXXXXXX
   )
 };
 
-/*
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _L1, _L2, _ADJUST);
     return state;
 }
-*/
+
 
 #ifdef OLED_ENABLE
 #include <stdio.h> //standard C library for macros, constants, definition of functions in I/O relations
@@ -210,7 +215,64 @@ void oled_render_layer_state(void) {
       {{157, 158, 159, 0}, {189, 190, 191, 0}, {221, 222, 223, 0}}, //_ADJUST
   };
 
-  if(layer_state_is(_AZERTY)) {
+  switch (layer_state) {
+    case _AZERTY:
+    case _QWERTY:
+    case _BEPO:
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[0][0], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[0][1], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[0][2], false);
+      break;
+    case _L1:
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[1][0], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[1][1], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[1][2], false);
+      break;
+    case _L2:
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[2][0], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[2][1], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[2][2], false);
+      break;
+    case _L3:
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[3][0], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[3][1], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[3][2], false);
+      break;
+    case _ADJUST:
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[6][0], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[6][1], false);
+      oled_write_P(PSTR("\n"), false);
+      oled_write_P(PSTR(" "), false);
+      oled_write_P(layer[6][2], false);
+      break;
+
+  }
+
+  /*
+    if(layer_state_is(_AZERTY)) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(layer[0][0], false);
     oled_write_P(PSTR("\n"), false);
@@ -265,7 +327,7 @@ void oled_render_layer_state(void) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(layer[0][2], false);
   }
-
+  */
 }
 
 /*
