@@ -33,25 +33,25 @@ bool os = true;
 #define ENTCTRL LCTL_T(KC_ENT) //
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_AZERTY] = LAYOUT_split_3x6_3(
+  [0] = LAYOUT_split_3x6_3(
      KC_ESC,     KC_A,     KC_Z,     KC_E,     KC_R,     KC_T,            KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC,
      KC_TAB,     KC_Q,     KC_S,     KC_D,     KC_F,     KC_G,            KC_H,     KC_J,     KC_K,     KC_L,     KC_M,  XXXXXXX,
     XXXXXXX,     KC_W,     KC_X,     KC_C,     KC_V,     KC_B,            KC_N,  KC_COMM,   KC_DOT,  KC_SLSH,  KC_EXLM,  XXXXXXX,
-                                      XXXXXXX,  MO(_L2),   ENTCTRL, SPACESFT,  MO(_L1),  XXXXXXX
+                                      XXXXXXX,  MO(2),   ENTCTRL, SPACESFT,  MO(1),  XXXXXXX
   ),
-  [_L1] = LAYOUT_split_3x6_3(
+  [1] = LAYOUT_split_3x6_3(
     KC_MPRV,  KC_VOLU,    KC_F2,    KC_F3,    KC_F5,  XXXXXXX,         KC_BSPC,  KC_HOME,    KC_UP,  KC_PGUP,  XXXXXXX,  KC_CALC,
     KC_MPLY,  KC_MUTE,   KC_CUT,  KC_COPY,  KC_PSTE,  XXXXXXX,          KC_DEL,  KC_LEFT,  KC_DOWN,  KC_RGHT,  XXXXXXX,  KC_MAIL,
     KC_MNXT,  KC_VOLD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          KC_INS,   KC_END,  XXXXXXX,  KC_PGDN,  KC_MYCM,  KC_WHOM,
                                       XXXXXXX,  _______,  KC_RSFT,  XXXXXXX,  _______,  XXXXXXX
   ),
-  [_L2] = LAYOUT_split_3x6_3(
+  [2] = LAYOUT_split_3x6_3(
       KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,         KC_NLCK,    KC_P7,    KC_P8,    KC_P9,  KC_PMNS,  XXXXXXX,
       KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,         KC_PAST,    KC_P4,    KC_P5,    KC_P6,  KC_PPLS,  XXXXXXX,
     KC_NUBS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,         KC_PSLS,    KC_P1,    KC_P2,    KC_P3,  KC_PENT,  XXXXXXX,
                                       XXXXXXX,  _______,  XXXXXXX,  KC_LCTL,  _______,  KC_P0
   ),
-  [_ADJUST] = LAYOUT_split_3x6_3(
+  [3] = LAYOUT_split_3x6_3(
     QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      _OS,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -124,23 +124,30 @@ void oled_render_modifier_state(void) {
       {{201, 0}, {202, 0}}, //off_on
       {{203, 0}, {204, 0}}, //on_on
   };
-  /*
-    static const char PROGMEM alt[][2][3] = {
-        {{28, 29, 0}, {60, 61, 0}}, //white
-        {{30, 31, 0}, {62, 63, 0}}, //black
-    };
-    static const char PROGMEM windows[][2][3] = {
-        {{91, 92, 0}, {123, 124, 0}}, //white
-        {{93, 94, 0}, {125, 126, 0}}, //black
-    };
-  */
+  static const char PROGMEM alt[][2][3] = {
+      {{28, 29, 0}, {60, 61, 0}}, //white
+      {{30, 31, 0}, {62, 63, 0}}, //black
+  };
+  static const char PROGMEM windows[][2][3] = {
+      {{91, 92, 0}, {123, 124, 0}}, //white
+      {{93, 94, 0}, {125, 126, 0}}, //black
+  };
   oled_set_cursor(0,3);
-  oled_write_P(command[0][0], false);
-  oled_write_P(separators[0][0], false);
-  oled_write_P(option[0][0], false);
-  oled_write_P(command[0][1], false);
-  oled_write_P(separators[0][1], false);
-  oled_write_P(option[0][1], false);
+  if (os == false) {
+    oled_write_P(alt[0][0], false);
+    oled_write_P(separators[0][0], false);
+    oled_write_P(windows[0][0], false);
+    oled_write_P(alt[0][1], false);
+    oled_write_P(separators[0][1], false);
+    oled_write_P(windows[0][1], false);
+  } else if(os == true) {
+    oled_write_P(command[0][0], false);
+    oled_write_P(separators[0][0], false);
+    oled_write_P(option[0][0], false);
+    oled_write_P(command[0][1], false);
+    oled_write_P(separators[0][1], false);
+    oled_write_P(option[0][1], false);
+  }
 
   oled_write_P(ctrl[0][0], false);
   oled_write_P(separators[0][0], false);
@@ -148,14 +155,7 @@ void oled_render_modifier_state(void) {
   oled_write_P(ctrl[0][1], false);
   oled_write_P(separators[0][1], false);
   oled_write_P(shift[0][1], false);
-  /*
-    oled_write_P(alt[0][0], false);
-    oled_write_P(separators[0][0], false);
-    oled_write_P(windows[0][0], false);
-    oled_write_P(alt[0][1], false);
-    oled_write_P(separators[0][1], false);
-    oled_write_P(windows[0][1], false);
-  */
+
 }
 
 void oled_render_keylock_state (void) {
@@ -163,8 +163,10 @@ void oled_render_keylock_state (void) {
       {{5, 6, 7, 8, 9, 0}, {37, 38, 39, 40, 41, 0}}, //white
       {{11, 12, 13, 14, 15, 0}, {43, 44, 45, 46, 0}}, //black
   };
-  oled_write_P(inser[0][0], false);
-  oled_write_P(inser[0][1], false);
+  if (os == true) {
+    oled_write_P(inser[0][0], false);
+    oled_write_P(inser[0][1], false);
+  }
 }
 
 void oled_render_layer_state(void) {
@@ -175,7 +177,10 @@ void oled_render_layer_state(void) {
       {{154, 155, 156, 0}, {186, 187, 188, 0}, {218, 219, 220, 0}}, //3
       {{157, 158, 159, 0}, {189, 190, 191, 0}, {221, 222, 223, 0}}, //_ADJUST
   };
-
+  if (os==false) {
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("\n"), false);
+  }
   switch (layer_state) {
     case _AZERTY:
       oled_write_P(PSTR(" "), false);
@@ -233,17 +238,15 @@ void oled_render_logo(void) {
 }
 
 bool oled_task_user(void) {
-/*
       if (is_keyboard_master()) {
+        oled_render_os();
+        oled_render_layout_state();
+        oled_render_modifier_state();
+        oled_render_keylock_state();
+        oled_render_layer_state();
       } else {
+        oled_render_logo();
       }
-*/
-  oled_render_os();
-  oled_render_layout_state();
-  oled_render_modifier_state();
-  oled_render_keylock_state();
-  oled_render_layer_state();
-  oled_render_logo();
   return false;
 }
 
@@ -255,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case _OS:
         os=!os;
       default:
-        break;
+        return true;
     }
   } else {
     return true; // Process all other keycodes normally
