@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include <stdio.h>
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) {
+  if (is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
   return rotation;
@@ -162,6 +162,7 @@ void oled_render_logo(void) {
         0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
         0};
     oled_write_P(crkbd_logo, os);
+    oled_render();
 }
 
 void oled_write_bool(void) {
@@ -174,13 +175,18 @@ void oled_write_bool(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        oled_render_layer_state();
-        oled_render_keylog();
-        oled_write_bool();
+  oled_render_logo();
+  oled_write_bool();
+/*
+      if (is_keyboard_master()) {
+      oled_render_logo();
+      oled_write_bool();
     } else {
-        oled_render_logo();
+      oled_render_layer_state();
+      oled_render_keylog();
+      oled_write_bool();
     }
+*/
     return false;
 }
 
